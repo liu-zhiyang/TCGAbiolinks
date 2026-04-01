@@ -315,14 +315,14 @@ GDCquery_clinic <- function(
                             days_to_follow_up,
                             #days_to_recurrence,
                             #progression_or_recurrence_type,
-                            disease_response
+                            #disease_response
                         )
                     ) %>%
                     dplyr::filter(!is.na(submitter_id), !is.na(days_to_follow_up)) %>%
                     dplyr::group_by(submitter_id) %>%
                     dplyr::filter(dplyr::row_number() == which.max(days_to_follow_up)) %>%
                     dplyr::ungroup()  %>%
-                    dplyr::rename_at(dplyr::vars(disease_response),.funs = function(x) paste0("follow_ups_",x)) %>%
+                    #dplyr::rename_at(dplyr::vars(disease_response),.funs = function(x) paste0("follow_ups_",x)) %>%
                     dplyr::rename(days_to_last_follow_up = days_to_follow_up)
 
                 df <- dplyr::full_join(df, follow_ups_last, by = "submitter_id")
